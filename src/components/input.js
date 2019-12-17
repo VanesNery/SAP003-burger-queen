@@ -1,13 +1,9 @@
+import React from 'react';
+
 function Input(props) {
-    const template = `
-    <input
-      class="${props.class} message-area"
-      placeholder="${props.placeholder}"
-      type="${props.type}" 
-    />
-    `;
-    
-    return template;
-  };
+  return (
+    <input class= {props.class} placeholder= {props.placeholder} type= {props.type}/>
+  )
+};
     
 export default Input;

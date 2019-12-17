@@ -1,22 +1,9 @@
-function Button(props) {
-  const template = `
-    <button 
-    data-id="${props.dataId}"
-    id="${props.id}"
-    class="${props.class} primary-button"
-    onclick="button.handleClick(event, ${props.onClick})" >${props.title}
-    <i class="${props.icone}"></i>
-    </button>
-  `;
-  return template;
-};
+import React from 'react';
 
-window.button = {
-  handleClick: (event, callback) => {
-    event.preventDefault();
-    callback(event.target.textContent);
-  },
-  component: Button,
+function Button (props){
+  return (
+  <button class= {props.class} onclick={props.handleClick}>{props.title}</button>
+  )
 };
 
 export default Button;
