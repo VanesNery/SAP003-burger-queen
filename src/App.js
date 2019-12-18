@@ -1,48 +1,29 @@
-import React, {useState, useEffect} from 'react';
-import firebase from './components/util/firebaseUtils';
+import React from "react";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import Kitchen from "./pages/kitchen";
+import Hall from "./pages/hall";
 
-  function Hall() {
-  // const [cardapio, setCardapio] = useState('breakfast')
-  const [menuBreak, setmenuBreak] = useState([])
-  const [menuLunch, setmenuLunch] = useState([])
-
-  useEffect(()=> {
-    let fireBreak = firebase.firestore().collection('menu').doc('rkDKptwgRbxstwJMPbLO').collection('breakfast');
-    let fireLunch = firebase.firestore().collection('menu').doc('rkDKptwgRbxstwJMPbLO').collection('lunch');
-    fireBreak.get().then((querySnapshot) => {
-      const product = querySnapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data()
-      }))
-      setmenuBreak(product)
-    })
-    fireLunch.get().then((querySnapshot) => {
-      const product = querySnapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data()
-      }))
-      setmenuLunch(product)
-    })
-  },[]
+export default function App() {
+  return (
+    <Router>
+      <div>
+        <ul>
+          <li>
+          <Link to="/hall">Garçom</Link>
+          </li>
+          <li>
+            <Link to="/kitchen">Cozinha</Link>
+          </li>
+        </ul>
+            <Switch>
+            <Route path="/hall">
+            <Hall />
+          </Route>
+           <Route path="/kitchen">
+            <Kitchen />
+          </Route>
+        </Switch>
+        </div>
+    </Router>
   );
-  
-    // function menuClick (){
-    //   if (cardapio === "breakfast"){
-    //     setCardapio("lunch")
-    //   } else{
-    //     setCardapio("breakfast")
-    //   }
-    // }
-   
-    return( 
-   <div>
-   <h2>Burguer Queen - Garçom</h2>
-   <h4>Café da Manhã</h4>
-    {menuBreak.map((product)=> <button key = {product.id}>{product.name}  R$:{product.price}</button>)}
-   <h4>Resto do Dia</h4>
-    {menuLunch.map((product)=> <button key = {product.id}>{product.name}  R$:{product.price}</button>)}
-   </div>
-   );
 }
-
-export default Hall

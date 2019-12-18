@@ -1,9 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import firebase from '../components/util/firebaseUtils';
 
-
   function Hall() {
-  // const [cardapio, setCardapio] = useState('breakfast')
+  const [cardapio, setCardapio] = useState([])
   const [menuBreak, setmenuBreak] = useState([])
   const [menuLunch, setmenuLunch] = useState([])
 
@@ -27,20 +26,24 @@ import firebase from '../components/util/firebaseUtils';
   },[]
   );
   
-    // function menuClick (){
-    //   if (cardapio === "breakfast"){
-    //     setCardapio("lunch")
-    //   } else{
-    //     setCardapio("breakfast")
-    //   }
-    // }
+    function menuClick (props){
+      if (props === "breakfast"){
+        setCardapio(menuBreak.map((product)=> <button key = {product.id}>{product.name}  R${product.price},00</button>))
+      } else{
+        setCardapio(menuLunch.map((product)=> <button key = {product.id}>{product.name}  R${product.price},00</button>))
+      }
+      return (cardapio)
+    }
    
     return( 
-   <div>
+   <main>
    <h2>Burguer Queen - Garçom</h2>
-   <button >{menuBreak.map((product)=> <div key = {product.id}>{product.name}  R$:{product.price}</div>)}Café da Manhã</button>
-   {/* {menuLunch.map((product)=> <div key = {product.id}>{product.name}  R$:{product.price}</div>)} */}
-   </div>
+   <ul>
+   <button onClick={()=> menuClick('breakfast')}>Café da Manhã</button>
+   <button onClick={()=> menuClick('lunch')}>Resto do Dia</button>
+   </ul>
+   <p>{cardapio}</p>
+   </main>
    );
 }
 
