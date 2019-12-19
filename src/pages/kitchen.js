@@ -1,6 +1,6 @@
-import React from 'react'
+import React from 'react';
 
-function Kitchen(){
+export default function Kitchen(){
 
   return (
     <div>
@@ -9,5 +9,3 @@ function Kitchen(){
     </div>
   )
 }
-
-export default Kitchen
