@@ -1,29 +1,22 @@
 import React from "react";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Kitchen from "./pages/kitchen";
 import Hall from "./pages/hall";
+import Nav from "./components/nav"
 
 export default function App() {
   return (
     <Router>
       <div>
-        <ul>
-          <li>
-          <Link to="/hall">Garçom</Link>
-          </li>
-          <li>
-            <Link to="/kitchen">Cozinha</Link>
-          </li>
-        </ul>
-            <Switch>
-            <Route path="/hall">
-            <Hall />
-          </Route>
-           <Route path="/kitchen">
-            <Kitchen />
+       <Nav />
+        <Switch>
+          <Route path="/hall" component={Hall} />
+          <Route path="/kitchen" component={Kitchen} />
+          <Route path="/">
+            <p>Escolha um link</p>
           </Route>
         </Switch>
-        </div>
+      </div>
     </Router>
   );
 }

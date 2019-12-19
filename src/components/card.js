@@ -1,11 +1,10 @@
 import React from 'react';
-import Button from 'button.js';
-import Input from 'input.js';
 
-function Card (){
+export default function Card (props){
   return (
-    <Input/> 
+    <button onClick={props.handleClick}>
+      <p>{props.name}</p>
+      <p>R${props.price},00</p>
+    </button>
   );
 }
-
-export default Card;
