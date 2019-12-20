@@ -12,6 +12,7 @@ const config = {
     measurementId: "G-FTL09QV7LT"
 };
 
-firebase.initializeApp(config);
+let firebaseApp = firebase.initializeApp(config);
+const db = firebaseApp.firestore().collection('menu').doc('rkDKptwgRbxstwJMPbLO');
 
-export default firebase
+export default db
