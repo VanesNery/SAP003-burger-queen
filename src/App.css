@@ -1,0 +1,10 @@
+body{
+    background-color: #3f3f3f;
+    font-style: color white;
+}
+header{
+    background-color: black;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    color: rgb(228, 114, 8);
+    font-style: italic;
+}

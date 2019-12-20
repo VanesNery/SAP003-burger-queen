@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Kitchen from "./pages/kitchen";
 import Hall from "./pages/hall";
 import Nav from "./components/nav"
+import './App.css'
 
 export default function App() {
   return (
