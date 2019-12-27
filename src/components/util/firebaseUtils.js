@@ -13,6 +13,6 @@ const config = {
 };
 
 let firebaseApp = firebase.initializeApp(config);
-const db = firebaseApp.firestore().collection('menu').doc('rkDKptwgRbxstwJMPbLO');
+const db = firebaseApp.firestore();
 
 export default db
