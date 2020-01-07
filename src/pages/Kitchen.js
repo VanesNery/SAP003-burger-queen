@@ -5,8 +5,9 @@ export default function Kitchen(){
 
   return (
     <div>
-      <header>
-        <img className={css(styles.header)} src='../Burguer Queen.png' alt='Burguer Queen - Aréa do Garçom' width='150' />
+      <header className={css(styles.header)}>
+        <img src='../images/Burguer Queen.png' alt='Burguer Queen - Aréa do Cozinheiro'/><br /><br />
+        Aréa do Cozinheiro
         </header>
       <p className={css(styles.txt)}>Em Construção... Em Breve !</p>
     </div>
@@ -72,10 +73,10 @@ const styles = StyleSheet.create({
   },
 
   header:{
-    margin: '2px auto', 
+    margin: '2px auto',
     padding: '5px',
     display: 'flex',
-    justifyContent: 'left',
+    justifyContent: 'center',
   },
 
   txt:{

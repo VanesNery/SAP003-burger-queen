@@ -1,8 +1,8 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import Kitchen from "./pages/kitchen";
-import Hall from "./pages/hall";
-import Nav from "./components/nav";
+import Kitchen from "./pages/Kitchen";
+import Hall from "./pages/Hall";
+import Nav from "./components/Nav";
 import './App.css';
 import {StyleSheet, css} from 'aphrodite';
 
@@ -12,10 +12,11 @@ export default function App() {
       <div>
        <Nav />
         <Switch>
-        <Route path="/hall" component={Hall} />
-        <Route path="/kitchen" component={Kitchen} />
+        <Route path="/Hall" component={Hall} />
+        <Route path="/Kitchen" component={Kitchen} />
         <Route path="/">
-        <p className={css(styles.txt)}>Escolha uma opção</p>
+        <img  className={css(styles.header)}src='../images/Logo_BQ.png' alt='Burguer Queen'/>
+        <p className={css(styles.txt)}> Bem Vindo! - Por Favor escolha uma opção</p>
         </Route>
         </Switch>
       </div>
@@ -26,6 +27,13 @@ export default function App() {
 const styles = StyleSheet.create({
   txt:{
     color:'white',
-    fontSize:'80px',
+    fontSize:'3vw',
+    display: 'flex',
+    justifyContent: 'center',
   },
+  header:{
+    margin: '2vw auto', 
+    display: 'flex',
+    justifyContent: 'left',
+  }
 })
