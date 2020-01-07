@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
     border: 'none',  
     borderRadius: '5px',
     cursor: 'pointer',
-    hover: {':hover':{
+    ':active':{
       backgroundColor:'yellow'
     }
     }

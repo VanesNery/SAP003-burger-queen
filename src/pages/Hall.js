@@ -63,7 +63,7 @@ export default function Hall() {
     }
   }
 
-  const removeProduct = (product) => {
+ const removeProduct = (product) => {
     const existProduct = order.findIndex(item => item.name === product.name);
     const removeItem = order.filter(item => item.name !== product.name);
     if (product.quantity === 1) {
