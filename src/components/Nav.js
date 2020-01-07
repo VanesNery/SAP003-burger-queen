@@ -24,11 +24,11 @@ const styles = StyleSheet.create({
     backgroundColor: '#77dd77',
     fontSize: '12px',
     fontWeight: 'bold', 
-    padding: '10px',
+    padding: '15px',
     border: 'none',  
     borderRadius: '5px',
     cursor: 'pointer',
-    hover: {':hover':{
+    ':active':{
       backgroundColor:'yellow'
     }
     }

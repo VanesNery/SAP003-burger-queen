@@ -12,13 +12,11 @@ export default function App() {
       <div>
        <Nav />
         <Switch>
-        <Route path="/hall" component={Hall} />
-        <Route path="/kitchen" component={Kitchen} />
+        <Route path="/Hall" component={Hall} />
+        <Route path="/Kitchen" component={Kitchen} />
         <Route path="/">
-        <header>
-        <img className={css(styles.header)} src='../Burguer Queen.png' alt='Burguer Queen' width='150' />
-        </header>
-        <p className={css(styles.txt)}> Bem Vindo ao Burguer<br />Por Favor escolha uma opção</p>
+        <img  className={css(styles.header)}src='../images/Logo_BQ.png' alt='Burguer Queen'/>
+        <p className={css(styles.txt)}> Bem Vindo! - Por Favor escolha uma opção</p>
         </Route>
         </Switch>
       </div>
@@ -29,11 +27,12 @@ export default function App() {
 const styles = StyleSheet.create({
   txt:{
     color:'white',
-    fontSize:'80px',
+    fontSize:'3vw',
+    display: 'flex',
+    justifyContent: 'center',
   },
   header:{
-    margin: '2px auto', 
-    padding: '5px',
+    margin: '2vw auto', 
     display: 'flex',
     justifyContent: 'left',
   }
