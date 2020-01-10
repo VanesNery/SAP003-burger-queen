@@ -238,7 +238,7 @@ const styles = StyleSheet.create({
 
   button: {
     backgroundColor: "#77dd77",
-    fontSize: "11px",
+    fontSize: "1vw",
     fontWeight: "bold",
     padding: "1vw",
     border: "none",
@@ -252,7 +252,7 @@ const styles = StyleSheet.create({
 
   buttonCard: {
     backgroundColor: "#77dd77",
-    fontSize: "11px",
+    fontSize: "0.8vw",
     fontWeight: "bold",
     border: "none",
     borderRadius: "1vw",
@@ -262,46 +262,46 @@ const styles = StyleSheet.create({
 
   buttonOption: {
     backgroundColor: "red",
-    fontSize: "11px",
+    fontSize: "0.9vw",
     fontWeight: "bold",
     padding: "1vw",
     border: "none",
     borderRadius: "1vw",
     cursor: "pointer",
-    margin: "1vw auto auto 1vw"
+    margin: "1vw auto auto 1vw",
   },
 
   buttonExtra: {
     backgroundColor: "blue",
-    fontSize: "11px",
+    fontSize: "0.9vw",
     fontWeight: "bold",
     padding: "1vw",
     border: "none",
     borderRadius: "1vw",
     cursor: "pointer",
-    margin: "1vw auto auto 1vw"
+    margin: "1vw auto auto 1vw",
   },
 
   buttonSend: {
     backgroundColor: "yellow",
-    fontSize: "11px",
+    fontSize: "0.8vw",
     fontWeight: "bold",
-    padding: "10px",
+    padding: "1vw",
     border: "none",
-    borderRadius: "5px",
+    borderRadius: "5vw",
     cursor: "pointer",
-    margin: "8px"
+    margin: "1vw"
   },
 
   card: {
     width: "40%",
     float: "left",
     alignItems: "center",
-    margin: "20px 5,5% 0% 5.5%"
+    margin: "-1% 1.5% 0% 1.5%"
   },
 
   order: {
-    margin: "2px 5.5% 0% 5.5%",
+    margin: "-1% 1.5% 0% 1.5%",
     width: "40%",
     float: "left",
     border: "none",
@@ -313,8 +313,8 @@ const styles = StyleSheet.create({
   },
 
   header: {
-    margin: "2px auto",
-    padding: "5px",
+    margin: "1.5vw auto",
+    padding: "0.8vw",
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
