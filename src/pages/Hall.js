@@ -59,6 +59,8 @@ export default function Hall() {
       product.quantity++;
       setOrder([...order]);
     }
+    setproductExtras([]);
+    setproductOptions([]);
   };
 
   const openOptions = product => {
@@ -108,7 +110,7 @@ export default function Hall() {
       const clientOrder = {
         name: clientName,
         desk: desk,
-        time: new Date(),
+        time: new Date().getTime(),
         itens: order,
         total: total,
         status: "Pendente"
@@ -238,13 +240,13 @@ const styles = StyleSheet.create({
 
   button: {
     backgroundColor: "#77dd77",
-    fontSize: "1vw",
+    fontSize: "1.8vw",
     fontWeight: "bold",
     padding: "1vw",
     border: "none",
     borderRadius: "1vw",
     cursor: "pointer",
-    margin: "auto 3vw auto 6vw",
+    margin: "auto 2vw auto 2vw",
     ":active": {
       backgroundColor: "yellow"
     }
@@ -252,17 +254,17 @@ const styles = StyleSheet.create({
 
   buttonCard: {
     backgroundColor: "#77dd77",
-    fontSize: "0.8vw",
+    fontSize: "1.3vw",
     fontWeight: "bold",
     border: "none",
     borderRadius: "1vw",
     cursor: "pointer",
-    margin: "1vw auto auto 1vw"
+    margin: "1vw 0.5vw auto 0.5vw"
   },
 
   buttonOption: {
     backgroundColor: "red",
-    fontSize: "0.9vw",
+    fontSize: "1.3vw",
     fontWeight: "bold",
     padding: "1vw",
     border: "none",
@@ -273,7 +275,7 @@ const styles = StyleSheet.create({
 
   buttonExtra: {
     backgroundColor: "blue",
-    fontSize: "0.9vw",
+    fontSize: "1.3vw",
     fontWeight: "bold",
     padding: "1vw",
     border: "none",
@@ -284,7 +286,7 @@ const styles = StyleSheet.create({
 
   buttonSend: {
     backgroundColor: "yellow",
-    fontSize: "0.8vw",
+    fontSize: "1.3vw",
     fontWeight: "bold",
     padding: "1vw",
     border: "none",

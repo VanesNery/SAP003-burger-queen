@@ -8,7 +8,7 @@ export default function Kitchen() {
   const [menus, setMenus] = useState([]);
   const [menuPending, setmenuPending] = useState([]);
   const [menuReady, setmenuReady] = useState([]);
-
+  
   useEffect(() => {
     db.collection("orders")
       .where("status", "==", "Pendente")
@@ -35,9 +35,26 @@ export default function Kitchen() {
 
   const orders = menus === "Pendente" ? menuPending : menuReady;
 
-  // const orderPending = () =>{
-  //   return
-  // }
+  const calculateTime = orders => {
+    let date = new Date().getTime() - orders;
+    return date;
+  };
+
+  const updateStatus = order => {
+    if (order.status === "Pendente") {
+      order.status = "Pronto";
+      db.collection("orders")
+        .doc(order.id)
+        .update({
+          status: "Pronto",
+          finalTime: new Date().getTime()
+        });
+
+      const filter = menuPending.filter(ticket => ticket !== order);
+      setmenuReady([...menuReady, order]);
+      setmenuPending([...filter]);
+    }
+  };
 
   return (
     <main>
@@ -63,16 +80,20 @@ export default function Kitchen() {
           <OrderKitchen
             className={css(styles.card)}
             name={"Cliente: " + orders.name}
-            desk={" Mesa: " + orders.desk}
+            desk={"Mesa: " + orders.desk}
             itens={orders.itens.map(i => (
               <span>
                 {i.quantity + "x "}
                 {i.name}
-                <br/>
+                <br />
               </span>
             ))}
-            time={" Hora: " + orders.time}
-            status={" Status: " + orders.status}
+            timestamp={calculateTime(orders.time)}
+            status={"Status: " + orders.status}
+            title={
+              orders.status === "Pendente" ? "Pedido Pronto" : "Pedido Entregue"
+            }
+            onClick={() => updateStatus(orders)}
           />
         ))}
       </section>
@@ -83,13 +104,13 @@ export default function Kitchen() {
 const styles = StyleSheet.create({
   button: {
     backgroundColor: "#77dd77",
-    fontSize: "1vw",
+    fontSize: "2vw",
     fontWeight: "bold",
     padding: "1vw",
     border: "none",
     borderRadius: "3vw",
     cursor: "pointer",
-    margin: "-1vw 20vw auto 10vw",
+    margin: "-1vw 2vw auto 10vw",
     ":active": {
       backgroundColor: "yellow"
     }
@@ -135,8 +156,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     padding: "1vw",
     color: "white",
-    margin: "1vw 1.5vw 0vw 1.5vw",
-    },
+    margin: "1vw 1.5vw 0vw 1.5vw"
+  },
 
   order: {
     margin: "-1vw 1.5vw 0vw 1.5vw",

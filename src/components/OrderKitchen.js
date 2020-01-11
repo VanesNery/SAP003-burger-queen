@@ -5,16 +5,16 @@ import Button from "../components/Button";
 export default function Order(props) {
   return (
     <div className={props.className}>
-      <span>{props.name}</span>
-      <span>{props.desk}</span><br />
-      <span>{props.itens}</span>
-      <span>{props.time}</span><br />
-      <span>{props.status}</span>
-      <Button
+      <p>{props.name}</p>
+      <p>{props.desk}</p>
+      <p>{props.itens}</p>
+      <p>{props.timestamp}</p>
+      <p>{props.status}</p>
+      <p><Button
         className={css(styles.button)}
-        onClick={() => props.onClick(props)}
-        title="Oi"
-      />
+        handleClick={props.onClick}
+        title={props.title}
+      /></p>
     </div>
   );
 }
