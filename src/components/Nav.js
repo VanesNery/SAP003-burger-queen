@@ -14,6 +14,9 @@ export default function Nav() {
       <button className={css(styles.button)}>
         <Link to="/Kitchen">Cozinha</Link>
       </button>
+      <button className={css(styles.button)}>
+        <Link to="/History">Histórico</Link>
+      </button>
     </>
   );
 }
