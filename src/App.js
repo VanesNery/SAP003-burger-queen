@@ -2,6 +2,7 @@ import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Kitchen from "./pages/Kitchen";
 import Hall from "./pages/Hall";
+import History from "./pages/History";
 import Nav from "./components/Nav";
 import './App.css';
 import {StyleSheet, css} from 'aphrodite';
@@ -14,6 +15,7 @@ export default function App() {
         <Switch>
         <Route path="/Hall" component={Hall} />
         <Route path="/Kitchen" component={Kitchen} />
+        <Route path="/History" component={History} />
         <Route path="/">
         <img  className={css(styles.header)}src='../images/Logo_BQ.png' alt='Burguer Queen'/>
         <p className={css(styles.txt)}> Bem Vindo! - Por Favor escolha uma opção</p>

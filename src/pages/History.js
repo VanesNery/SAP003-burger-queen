@@ -6,20 +6,19 @@ import OrderKitchen from "../components/OrderKitchen";
 
 export default function Kitchen() {
   const [menus, setMenus] = useState([]);
-  const [menuPending, setmenuPending] = useState([]);
   const [menuReady, setmenuReady] = useState([]);
   const [menuorderHistory, setmenuorderHistory] = useState([]);
   
   useEffect(() => {
     db.collection("orders")
-      .where("status", "==", "Pendente")
+      .where("status", "==", "Pronto")
       .get()
       .then(querySnapshot => {
         const order = querySnapshot.docs.map(doc => ({
           id: doc.id,
           ...doc.data()
         }));
-        setmenuPending(order);
+        setmenuReady(order);
       });
     db.collection("orders")
       .where("status", "==", "Entregue")
@@ -33,28 +32,28 @@ export default function Kitchen() {
       });
   }, []);
 
-  const orders = menus === "Pendente" ? menuPending : menuorderHistory;
+  const orders = menus === "Pronto" ? menuReady : menuorderHistory;
+
+  const updateStatus = order => {
+    if (order.status === "Pronto") {
+      order.status = "Entregue";
+      db.collection("orders")
+        .doc(order.id)
+        .update({
+          status: "Entregue",
+          finalTime: new Date().getTime()
+        });
+
+      const filter = menuReady.filter(ticket => ticket !== order);
+      setmenuorderHistory([...menuReady, order]);
+      setmenuReady([...filter]);
+    }
+  };
 
   const calculateTime = orders => {
     let date = new Date(orders);
     let time = date.toLocaleString();
     return time;
-  };
-
-  const updateStatus = order => {
-    if (order.status === "Pendente") {
-      order.status = "Pronto";
-      db.collection("orders")
-        .doc(order.id)
-        .update({
-          status: "Pronto",
-          finalTime: new Date().getTime()
-        });
-
-      const filter = menuPending.filter(ticket => ticket !== order);
-      setmenuReady([...menuReady, order]);
-      setmenuPending([...filter]);
-    }
   };
   
   return (
@@ -62,14 +61,14 @@ export default function Kitchen() {
       <header className={css(styles.header)}>
         <img
           src="../images/Burguer Queen.png"
-          alt="Burguer Queen - Aréa do Cozinheiro"
+          alt="Burguer Queen - Histórico de Pedidos"
         />
-        Aréa do Cozinheiro
+        Histórico de Pedidos
       </header>
       <Button
         className={css(styles.button)}
-        handleClick={() => setMenus("Pendente")}
-        title="Pedidos Pendentes"
+        handleClick={() => setMenus("Pronto")}
+        title="Pedidos Prontos"
       />
       <Button
         className={css(styles.button)}
@@ -89,10 +88,12 @@ export default function Kitchen() {
                 <br />
               </span>
             ))}
-            time={calculateTime(orders.time)}
+            time={
+                orders.status === "Pronto" ? calculateTime(orders.finalTime) : calculateTime(orders.time)
+            }
             status={"Status: " + orders.status}
             title={
-              orders.status === "Pendente" ? "Pedido Pendente" : "Pedido Ok"
+              orders.status === "Pronto" ? "Pedido Pronto" : "Pedido Ok"
             }
             onClick={() => updateStatus(orders)}
           />

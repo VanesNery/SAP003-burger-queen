@@ -8,7 +8,7 @@ export default function Order(props) {
       <p>{props.name}</p>
       <p>{props.desk}</p>
       <p>{props.itens}</p>
-      <p>{props.timestamp}</p>
+      <p>{props.time}</p>
       <p>{props.status}</p>
       <p><Button
         className={css(styles.button)}
