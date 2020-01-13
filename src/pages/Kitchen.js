@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { StyleSheet, css } from "aphrodite";
-import db from "../components/util/firebaseUtils";
+import firebase from "../components/util/firebaseUtils";
 import Button from "../components/Button";
 import OrderKitchen from "../components/OrderKitchen";
 
@@ -9,9 +9,9 @@ export default function Kitchen() {
   const [menuPending, setmenuPending] = useState([]);
   const [menuReady, setmenuReady] = useState([]);
   const [menuorderHistory, setmenuorderHistory] = useState([]);
-  
+
   useEffect(() => {
-    db.collection("orders")
+    firebase.firestore().collection("orders")
       .where("status", "==", "Pendente")
       .get()
       .then(querySnapshot => {
@@ -21,7 +21,7 @@ export default function Kitchen() {
         }));
         setmenuPending(order);
       });
-    db.collection("orders")
+      firebase.firestore().collection("orders")
       .where("status", "==", "Entregue")
       .get()
       .then(querySnapshot => {
@@ -44,7 +44,7 @@ export default function Kitchen() {
   const updateStatus = order => {
     if (order.status === "Pendente") {
       order.status = "Pronto";
-      db.collection("orders")
+      firebase.collection("orders")
         .doc(order.id)
         .update({
           status: "Pronto",
@@ -56,7 +56,7 @@ export default function Kitchen() {
       setmenuPending([...filter]);
     }
   };
-  
+
   return (
     <main>
       <header className={css(styles.header)}>
@@ -89,7 +89,7 @@ export default function Kitchen() {
                 <br />
               </span>
             ))}
-            time={calculateTime(orders.time)}
+            time={"Hora: "+calculateTime(orders.time)}
             status={"Status: " + orders.status}
             title={
               orders.status === "Pendente" ? "Pedido Pendente" : "Pedido Ok"

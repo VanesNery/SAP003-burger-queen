@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { StyleSheet, css } from "aphrodite";
-import db from "../components/util/firebaseUtils";
+import firebase from "../components/util/firebaseUtils";
+import Exit from "../components/Exit";
 import Button from "../components/Button";
 import Input from "../components/Input";
 import Card from "../components/Card";
@@ -18,11 +19,11 @@ export default function Hall() {
   const [desk, setDesk] = useState(0);
 
   useEffect(() => {
-    const fireBreak = db
+    const fireBreak = firebase.firestore()
       .collection("menu")
       .doc("rkDKptwgRbxstwJMPbLO")
       .collection("breakfast");
-    const fireLunch = db
+    const fireLunch = firebase.firestore()
       .collection("menu")
       .doc("rkDKptwgRbxstwJMPbLO")
       .collection("lunch");
@@ -54,8 +55,7 @@ export default function Hall() {
     if (existingProduct === undefined) {
       product.quantity = 1;
       setOrder([...order, product]);
-    }
-    else {
+    } else {
       product.quantity++;
       setOrder([...order]);
     }
@@ -115,7 +115,7 @@ export default function Hall() {
         total: total,
         status: "Pendente"
       };
-      db.collection("orders").add(clientOrder);
+      firebase.collection("orders").add(clientOrder);
       alert("Pedido enviado com sucesso");
       setclientName("");
       setDesk(0);
@@ -136,6 +136,7 @@ export default function Hall() {
           alt="Burguer Queen - Aréa do Garçom"
         />
         Aréa do Garçom
+       <Exit />
       </header>
       <aside className={css(styles.card)}>
         <fieldset className={css(styles.input)}>
@@ -203,7 +204,7 @@ export default function Hall() {
                     addOrder(selectProduct);
                   }}
                   title={elem.name}
-                  price={' R$: '+elem.price+',00'}
+                  price={" R$: " + elem.price + ",00"}
                 />
               ))
             : false}
@@ -211,11 +212,7 @@ export default function Hall() {
       </aside>
       <aside className={css(styles.order)}>
         {order.map((product, item) => (
-          <Order
-            key={item.name}
-            {...product}
-            onClick={removeProduct}
-          />
+          <Order key={item.name} {...product} onClick={removeProduct} />
         ))}
         <strong> Total: R${total},00</strong>
         <Button
@@ -270,7 +267,7 @@ const styles = StyleSheet.create({
     border: "none",
     borderRadius: "1vw",
     cursor: "pointer",
-    margin: "1vw auto auto 1vw",
+    margin: "1vw auto auto 1vw"
   },
 
   buttonExtra: {
@@ -281,7 +278,7 @@ const styles = StyleSheet.create({
     border: "none",
     borderRadius: "1vw",
     cursor: "pointer",
-    margin: "1vw auto auto 1vw",
+    margin: "1vw auto auto 1vw"
   },
 
   buttonSend: {
@@ -319,6 +316,6 @@ const styles = StyleSheet.create({
     padding: "0.8vw",
     display: "flex",
     justifyContent: "center",
-    alignItems: "center",
+    alignItems: "center"
   }
 });
