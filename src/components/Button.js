@@ -7,8 +7,8 @@ export default function Button(props) {
       className={props.className}
       onClick={props.handleClick}
     >
-      {props.title}
-      {props.price}
+      <p>{props.title}</p>
+      <p>{props.price}</p>
     </button>
   );
 }

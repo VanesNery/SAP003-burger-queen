@@ -1,7 +1,8 @@
 import firebase from 'firebase';
+import 'firebase/firebase-auth';
 import 'firebase/firestore';
 
-const config = {
+var config = {
     apiKey: "AIzaSyDEnaEMDhPJq4e4tVKN_cFmnt--lBMF51c",
     authDomain: "burguer-queen-3e833.firebaseapp.com",
     databaseURL: "https://burguer-queen-3e833.firebaseio.com",
@@ -11,8 +12,7 @@ const config = {
     appId: "1:448539984859:web:b83d6403f0afcb07a69dfe",
     measurementId: "G-FTL09QV7LT"
 };
+firebase.initializeApp(config);
+firebase.firestore().enablePersistence();
 
-let firebaseApp = firebase.initializeApp(config);
-const db = firebaseApp.firestore();
-
-export default db
+export default firebase;

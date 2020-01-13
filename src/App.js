@@ -1,41 +1,43 @@
-import React from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import "./App.css";
+import React, { useEffect } from "react";
+import firebase from "./components/util/firebaseUtils";
 import Kitchen from "./pages/Kitchen";
 import Hall from "./pages/Hall";
-import History from "./pages/History";
-import Nav from "./components/Nav";
-import './App.css';
-import {StyleSheet, css} from 'aphrodite';
+import Register from "./pages/Register";
+import Login from "./pages/Login.js";
+import { Route, useHistory } from 'react-router-dom';
 
 export default function App() {
+  const history = useHistory();
+
+  useEffect(() => {
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        firebase
+          .firestore()
+          .collection("users")
+          .doc(user.uid)
+          .get()
+          .then(snapShot => {
+            const perfil = snapShot.data();
+            if (perfil.office === "Hall") {
+              history.push("/Hall");
+            } else {
+              history.push("/Kitchen");
+            }
+          });
+      } else {
+        history.push("/");
+      }
+    });
+  }, [history]);
+
   return (
-    <Router>
-      <div>
-       <Nav />
-        <Switch>
-        <Route path="/Hall" component={Hall} />
-        <Route path="/Kitchen" component={Kitchen} />
-        <Route path="/History" component={History} />
-        <Route path="/">
-        <img  className={css(styles.header)}src='../images/Logo_BQ.png' alt='Burguer Queen'/>
-        <p className={css(styles.txt)}> Bem Vindo! - Por Favor escolha uma opção</p>
-        </Route>
-        </Switch>
-      </div>
-    </Router>
+    <div>
+      <Route exact path="/" component={Login} />
+      <Route path="/Hall" component={Hall} />
+      <Route path="/Kitchen" component={Kitchen} />
+      <Route path="/Register" component={Register} />
+    </div>
   );
 }
-
-const styles = StyleSheet.create({
-  txt:{
-    color:'white',
-    fontSize:'3vw',
-    display: 'flex',
-    justifyContent: 'center',
-  },
-  header:{
-    margin: '2vw auto', 
-    display: 'flex',
-    justifyContent: 'left',
-  }
-})

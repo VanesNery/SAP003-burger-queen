@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { StyleSheet, css } from "aphrodite";
-import db from "../components/util/firebaseUtils";
+import firebase from "../components/util/firebaseUtils";
 import Button from "../components/Button";
 import OrderKitchen from "../components/OrderKitchen";
 
@@ -8,9 +8,9 @@ export default function Kitchen() {
   const [menus, setMenus] = useState([]);
   const [menuReady, setmenuReady] = useState([]);
   const [menuorderHistory, setmenuorderHistory] = useState([]);
-  
+
   useEffect(() => {
-    db.collection("orders")
+    firebase.firestore().collection("orders")
       .where("status", "==", "Pronto")
       .get()
       .then(querySnapshot => {
@@ -20,7 +20,7 @@ export default function Kitchen() {
         }));
         setmenuReady(order);
       });
-    db.collection("orders")
+      firebase.firestore().collection("orders")
       .where("status", "==", "Entregue")
       .get()
       .then(querySnapshot => {
@@ -37,7 +37,7 @@ export default function Kitchen() {
   const updateStatus = order => {
     if (order.status === "Pronto") {
       order.status = "Entregue";
-      db.collection("orders")
+      firebase.collection("orders")
         .doc(order.id)
         .update({
           status: "Entregue",
@@ -55,7 +55,7 @@ export default function Kitchen() {
     let time = date.toLocaleString();
     return time;
   };
-  
+
   return (
     <main>
       <header className={css(styles.header)}>
@@ -89,12 +89,12 @@ export default function Kitchen() {
               </span>
             ))}
             time={
-                orders.status === "Pronto" ? calculateTime(orders.finalTime) : calculateTime(orders.time)
+              orders.status === "Pronto"
+                ? "Hora: " +calculateTime(orders.finalTime)
+                : "Hora: " +calculateTime(orders.time)
             }
             status={"Status: " + orders.status}
-            title={
-              orders.status === "Pronto" ? "Pedido Pronto" : "Pedido Ok"
-            }
+            title={orders.status === "Pronto" ? "Pedido Pronto" : "Pedido Ok"}
             onClick={() => updateStatus(orders)}
           />
         ))}
