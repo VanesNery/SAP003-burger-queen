@@ -24,18 +24,19 @@ export default function Exit() {
   };
 
   return (
-    <button className={css(styles.button)} handleClick={logOut}>
+    <p>
+    <button className={css(styles.button)} onClick={() => logOut()}>
       Sair
     </button>
+    </p>
   );
 }
 
 const styles = StyleSheet.create({
   button: {
     backgroundColor: "#77dd77",
-    fontSize: "11px",
     fontWeight: "bold",
-    padding: "1vw",
+    padding: "1.5vw",
     border: "none",
     borderRadius: "1vw",
     cursor: "pointer",

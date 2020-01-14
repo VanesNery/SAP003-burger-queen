@@ -3,6 +3,7 @@ import { StyleSheet, css } from "aphrodite";
 import firebase from "../components/util/firebaseUtils";
 import Button from "../components/Button";
 import OrderKitchen from "../components/OrderKitchen";
+import Exit from "../components/Exit";
 
 export default function Kitchen() {
   const [menus, setMenus] = useState([]);
@@ -11,7 +12,9 @@ export default function Kitchen() {
   const [menuorderHistory, setmenuorderHistory] = useState([]);
 
   useEffect(() => {
-    firebase.firestore().collection("orders")
+    firebase
+      .firestore()
+      .collection("orders")
       .where("status", "==", "Pendente")
       .get()
       .then(querySnapshot => {
@@ -21,7 +24,9 @@ export default function Kitchen() {
         }));
         setmenuPending(order);
       });
-      firebase.firestore().collection("orders")
+    firebase
+      .firestore()
+      .collection("orders")
       .where("status", "==", "Entregue")
       .get()
       .then(querySnapshot => {
@@ -44,7 +49,9 @@ export default function Kitchen() {
   const updateStatus = order => {
     if (order.status === "Pendente") {
       order.status = "Pronto";
-      firebase.collection("orders")
+      firebase
+      .firestore()
+        .collection("orders")
         .doc(order.id)
         .update({
           status: "Pronto",
@@ -66,6 +73,7 @@ export default function Kitchen() {
         />
         Aréa do Cozinheiro
       </header>
+      <Exit />
       <Button
         className={css(styles.button)}
         handleClick={() => setMenus("Pendente")}
@@ -84,15 +92,17 @@ export default function Kitchen() {
             desk={"Mesa: " + orders.desk}
             itens={orders.itens.map(i => (
               <span>
-                {i.quantity + "x "}
-                {i.name}
-                <br />
+                <p>
+                  {i.quantity + "x "}
+                  {i.name}
+                </p>
               </span>
             ))}
-            time={"Hora: "+calculateTime(orders.time)}
+            time={"Pedido Feito: " + calculateTime(orders.time)}
+            finalTime={"Pedido Pronto: " + calculateTime(orders.finalTime)}
             status={"Status: " + orders.status}
             title={
-              orders.status === "Pendente" ? "Pedido Pendente" : "Pedido Ok"
+              orders.status === "Pendente" ? "Pedido Pendente" : "Pedido Finalizado"
             }
             onClick={() => updateStatus(orders)}
           />
@@ -118,7 +128,10 @@ const styles = StyleSheet.create({
   },
 
   card: {
-    width: "40vw",
+    minWidth: "40vw",
+    minHeight: "50vw",
+    width: "35vw",
+    height: "38vw",
     float: "left",
     border: "solid",
     borderRadius: "1vw",

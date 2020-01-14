@@ -3,6 +3,7 @@ import { StyleSheet, css } from "aphrodite";
 import firebase from "../components/util/firebaseUtils";
 import Button from "../components/Button";
 import OrderKitchen from "../components/OrderKitchen";
+import Voltar from "../components/Voltar";
 
 export default function Kitchen() {
   const [menus, setMenus] = useState([]);
@@ -75,6 +76,7 @@ export default function Kitchen() {
         handleClick={() => setMenus("Entregue")}
         title="Historico de Pedidos"
       />
+      <Voltar />
       <section>
         {orders.map(orders => (
           <OrderKitchen
@@ -88,13 +90,10 @@ export default function Kitchen() {
                 <br />
               </span>
             ))}
-            time={
-              orders.status === "Pronto"
-                ? "Hora: " +calculateTime(orders.finalTime)
-                : "Hora: " +calculateTime(orders.time)
-            }
+            time={"Pedido Feito: " + calculateTime(orders.time)}
+            finalTime={"Pedido Pronto: " + calculateTime(orders.finalTime)}
             status={"Status: " + orders.status}
-            title={orders.status === "Pronto" ? "Pedido Pronto" : "Pedido Ok"}
+            title={orders.status === "Pronto" ? "Pedido Pronto" : "Pedido Finalizado"}
             onClick={() => updateStatus(orders)}
           />
         ))}
@@ -113,6 +112,18 @@ const styles = StyleSheet.create({
     borderRadius: "3vw",
     cursor: "pointer",
     margin: "-1vw 2vw auto 10vw",
+    ":active": {
+      backgroundColor: "yellow"
+    }
+  },
+
+  buttonExit: {
+    backgroundColor: "#77dd77",
+    fontWeight: "bold",
+    padding: "0.5vw",
+    border: "none",
+    borderRadius: "1vw",
+    cursor: "pointer",
     ":active": {
       backgroundColor: "yellow"
     }

@@ -1,43 +1,56 @@
 import "./App.css";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import firebase from "./components/util/firebaseUtils";
 import Kitchen from "./pages/Kitchen";
 import Hall from "./pages/Hall";
-import Register from "./pages/Register";
 import Login from "./pages/Login.js";
-import { Route, useHistory } from 'react-router-dom';
+import History from "./pages/History";
+import { Route } from "react-router-dom";
+import Register from "./pages/Register.js";
 
 export default function App() {
-  const history = useHistory();
+  const [tipo, setTipo] = useState("");
 
   useEffect(() => {
-    firebase.auth().onAuthStateChanged(user => {
-      if (user) {
+    firebase.auth().onAuthStateChanged(userId => {
+    
+      if (userId) {
+        console.log("mudou")
         firebase
-          .firestore()
+        .firestore()
           .collection("users")
-          .doc(user.uid)
+          .doc(userId.uid)
           .get()
-          .then(snapShot => {
-            const perfil = snapShot.data();
-            if (perfil.office === "Hall") {
-              history.push("/Hall");
+          .then(userId => {
+            if (userId.data().office === "Hall") {
+              setTipo("Hall")
             } else {
-              history.push("/Kitchen");
+              setTipo("Kitchen")
             }
           });
       } else {
-        history.push("/");
+        console.log("ninguem logado")
+        setTipo("nenhum dos dois")
       }
     });
-  }, [history]);
+  }, []);
+
+  console.log(tipo)
 
   return (
     <div>
-      <Route exact path="/" component={Login} />
-      <Route path="/Hall" component={Hall} />
-      <Route path="/Kitchen" component={Kitchen} />
-      <Route path="/Register" component={Register} />
+      {tipo === "Hall" ? (
+        <>
+         <Route path="/Hall" component={Hall} />
+         <Route path="/History" component={History} />
+        </>
+      ) : (tipo === "Kitchen" ? <Route path="/Kitchen" component={Kitchen} /> : (
+        <>
+          <Route exact path="/" component={Login} />
+          <Route path="/Register" component={Register} />
+        </>
+      ))  
+  }
     </div>
   );
 }

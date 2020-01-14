@@ -10,17 +10,33 @@ import Input from "../components/Input";
 export default function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const history = useHistory();
+  const road = useHistory();
 
   const refresh = {
     fadeAway: true,
-    fadeAwayTimeout: 500
+    fadeAwayTimeout: 2000
   };
 
   const login = () => {
         firebase
         .auth()
         .signInWithEmailAndPassword(email, password)
+        .then(userId => {
+          console.log(userId)
+          firebase
+            .firestore()
+            .collection("users")
+            .doc(userId.user.uid)
+            .get()
+            .then( doc => {
+              if(doc.data().office === "Kitchen"){
+                road.push("/Kitchen");
+              } else {
+                road.push("/Hall", "/History");
+              }
+            }
+          );
+        })
         .catch(error => {
           const errorCode = error.code;
           if (errorCode === "auth/wrong-password") {
@@ -53,19 +69,21 @@ export default function Register() {
         <Input
           value={password}
           placeholder="Senha"
-          type="text"
+          type="password"
           onChange={e => setPassword(e.target.value)}
         />
       </ul>
+      <div className={css(styles.div)}>
       <Button
         className={css(styles.button)}
         title="Login"
         handleClick={() => login()}/>
       <Button
         className={css(styles.button)}
-        handleClick={() => history.push("/")}
+        handleClick={() => road.push("/Register")}
         title="Registra-se"
       />
+      </div>
     </main>
   );
 }
@@ -75,8 +93,9 @@ const styles = StyleSheet.create({
     margin: "auto auto 1vw",
     display: "flex",
     justifyContent: "center",
-    size: "10vw",
-    color: "white"
+    borderRadius: "10vw",
+    color: "white",
+    height: "4vw",
   },
 
   button: {
@@ -86,9 +105,6 @@ const styles = StyleSheet.create({
     padding: "0.5vw",
     borderRadius: "1vw",
     cursor: "pointer",
-    display: "flex",
-    justifyContent: "left",
-    margin: "auto 45vw",
     ":active": {
       backgroundColor: "yellow"
     }
@@ -99,6 +115,14 @@ const styles = StyleSheet.create({
     fontSize: "3vw",
     display: "flex",
     justifyContent: "center"
+  },
+
+  div: {
+    display: "flex",
+    alignItems: "center",
+    width: "100vw",
+    padding: "0.5vw",
+    margin: "auto 45vw"
   },
 
   header: {

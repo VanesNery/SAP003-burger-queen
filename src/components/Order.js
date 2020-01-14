@@ -5,7 +5,7 @@ export default function Order(props) {
   return (
     <div className={props.className}>
       <span>{props.quantity + "x"}</span> <span>{props.name}</span>
-      <span> {+props.typeOption}</span> <span>{+props.typeExtra}</span>
+      <span> {props.typeOption}</span> <span>{props.typeExtra}</span>
       <input
         className={css(styles.button)}
         onClick={() => props.onClick(props)}
