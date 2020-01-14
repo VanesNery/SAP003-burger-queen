@@ -1,68 +1,98 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Burger Queen
 
-## Available Scripts
+## Índice
 
-In the project directory, you can run:
+* [1. O que é?](#1-o-que-é?)
+* [2. Resumo do projeto](#2-resumo-do-projeto)
+* [3. Como Utilizar](#3-como-utilizar)
+* [4. Tecnologias Utilizadas](#4-tecnologias-utilizadas)
+* [5. Objetivos de aprendizagem e Considerações Gerais](#5-objetivos-de-aprendizagem-e-considerações-Gerais)
+* [6. Critérios atendidos](#6-critérios-atendidos)
+* [7. Imagem da Interface](#7-imagem-da-interface)
+* [8. Link](#8-link)
 
-### `npm start`
+***
+## 1. O que é?
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Burguer Queen é um interface adaptada para tablet, no qual o garçom consegue fazer o pedido e mandar para o cozinheiro de forma fácil e prática.
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+## 2. Resumo do projeto
 
-### `npm test`
+Programa possui 3 caminhos para usuário utilizar:
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Na 1ª interface o Garçom terá dois menus, um para o café da manhã e outro para o resto do dia, ambos podem ser utilizado durante o dia todo, ao clicar no produto, ele será direcionado para a ordem ao lado com o resumo da compra.
 
-### `npm run build`
+Na 2ª interface o Garçom consegue ver os pedidos prontos para entrega, no qual pode marcar como "Entregue" e ver o Histórico do pedidos.
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Na 3ª interface é direcionada ao Cozinheiro, no qual consegue ver o resumo do pedido, poderá marcar como "Pronto" e o Histórico de pedidos também.
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+## 3. Como Utilizar
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+O funcionario deve se cadastrar, se atentar na escolha do Cargo, pois o mesmo só verá o que faz parte do seu departamento.
 
-### `npm run eject`
+O Garçom pode escolher os produtos dos menus, verificar o carrinho, o total da nota, além de marcar o pedido como entregue e ver o histórico das ordens.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+O Cozinheiro consegue ver as ordens com o resumo do produtos, marcar como pronto e ver o Histórico dos pedidos também.
+ 
+## 4. Tecnologias Utilizadas
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+* HTML5
+* JavasScript (ES6)
+* Aphrodite (CSS)
+* React Hooks
+* growl-alert
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+## 5. Objetivos de aprendizagem e Considerações Gerais
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+O objetivo principal envolveu o aprendizado da construção de uma interface web usando React. A interface também foi planejada especificamente para rodar em tablets. O aplicativo é um Single Page App.
 
-## Learn More
+O aplicativo utilizou scripts npm-scripts e teve start, build e deploy, que são responsáveis por iniciar, empacotar e implantar o aplicativo, respectivamente.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## 6. Critérios atendidos
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+[História de usuário 1] Garçom/Garçonete deve poder anotar o seu pedido
+Eu como garçom/garçonete quero poder anotar o meu pedido saber o valor de cada produto e poder enviar o pedido para a cozinha para ser preparado.
 
-### Code Splitting
+Critérios de aceitação
+O que deve acontecer para satisfazer as necessidades do usuário?
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+Anotar o nome e mesa.
+Adicionar produtos aos pedidos.
+Excluir produtos.
+Ver resumo e o total da compra.
+Enviar o pedido para a cozinha (guardar em algum banco de dados).
+Funcionar bem e se adequar a um tablet.
 
-### Analyzing the Bundle Size
+[História de usuário 2] Chefe de cozinha deve ver os pedidos
+Eu como chefe de cozinha quero ver os pedidos dos clientes em ordem, poder marcar que estão prontos e poder notificar os garçons/garçonetes que o pedido está pronto para ser entregue ao cliente.
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+Critérios de aceitação
+Ver os pedidos à medida em que são feitos.
+Marcar os pedidos que foram preparados e estão prontos para serem servidos.
+Ver o tempo que levou para preparar o pedido desde que chegou, até ser marcado como concluído.
 
-### Making a Progressive Web App
+[História de usuário 3] Garçom/Garçonete deve ver os pedidos prontos para servir
+Eu como garçom/garçonete quero ver os pedidos que estão prontos para entregá-los rapidamente aos clientes.
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+Critérios de aceitação
+Ver a lista de pedidos prontos para servir.
+Marque os pedidos que foram entregues.
+Os dados devem ser mantidos intactos, mesmo depois que um pedido terminado. Tudo isso para poder ter estatísticas no futuro.
 
-### Advanced Configuration
+[História de usuário 4] Usuário deve ter seu perfil (login/senha) para acessar o sistema.
+Eu como funcionário do restaurante quero entrar na plataforma e ver apenas a tela importante para o meu trabalho.
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
+Critérios de aceitação
+O que deve acontecer para satisfazer as necessidades do usuário?
 
-### Deployment
+Criar login e senha.
+Criar tipo de usuário (cozinha / salão).
+Entrar na tela correta para cada usuário.
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
+## 7. Imagem da Interface
 
-### `npm run build` fails to minify
+![](public/images/Captura de tela de 2020-01-14 18-51-55.png)
+![](public/images/Captura de tela de 2020-01-14 18-52-12.png)
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+## 8. Link
+

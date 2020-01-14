@@ -10,7 +10,7 @@ import Select from "../components/Select";
 
 export default function Register() {
   const [name, setName] = useState("");
-  const [office, setOffice] = useState("Hall");
+  const [office, setOffice] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const road = useHistory();
@@ -25,27 +25,18 @@ export default function Register() {
       firebase
         .auth()
         .createUserWithEmailAndPassword(email, password)
-        .then(() => {
+        .then(() => { 
           firebase
-            .collection("users")
-            .doc(firebase.auth().currentUser.uid)
-            .set({
-              name,
-              office,
-              email,
-              password,
-              userId: firebase.auth().currentUser.uid
-            });
-        })
-        .then(() => {
-          if (office === "Hall") {
-            road.push("/Hall");
-            growl({ text: "Olá !" + { name }, ...refresh });
-          } else {
-            road.push("/Kitchen");
-            growl.success({ text: "Olá !" + { name }, ...refresh });
-          }
-        })
+          .firestore()
+          .collection("users") 
+          .doc(firebase.auth().currentUser.uid)
+          .set({ 
+            name, 
+            office, 
+            email, 
+            password, 
+            userId: firebase.auth().currentUser.uid })
+           })
         .catch(error => {
           const errorCode = error.code;
           if (errorCode === "auth/email-already-in-use") {
@@ -80,10 +71,9 @@ export default function Register() {
           onChange={e => setName(e.target.value)}
         />
       </ul>
-      <ul className={css(styles.input)}>
+      <ul className={css(styles.select)}>
         <Select
-          title="Escolha"
-          onChange={e => setOffice(e.currentTarget.value)}
+        onChange={e => setOffice(e.currentTarget.value)}
         />
       </ul>
       <ul className={css(styles.input)}>
@@ -98,19 +88,22 @@ export default function Register() {
         <Input
           value={password}
           placeholder="Senha"
-          type="text"
+          type="password"
           onChange={e => setPassword(e.target.value)}
         />
       </ul>
+      <ul className={css(styles.div)}>
       <Button
-        className={css(styles.button)}
+      className={css(styles.button)}
         title="Voltar"
-        handleClick={() => road.push("/")}/>
-      <Button
-        className={css(styles.button)}
-        handleClick={() => authFirebase()}
-        title="Registra-se"
+        handleClick={() => road.push("/")}
       />
+      <Button
+      className={css(styles.button)}
+        handleClick={() => authFirebase()}
+        title="Registrar"
+      />
+      </ul>
     </main>
   );
 }
@@ -121,7 +114,8 @@ const styles = StyleSheet.create({
     display: "flex",
     justifyContent: "center",
     size: "10vw",
-    color: "white"
+    color: "white",
+    height: "4vw",
   },
 
   button: {
@@ -131,9 +125,6 @@ const styles = StyleSheet.create({
     padding: "0.5vw",
     borderRadius: "1vw",
     cursor: "pointer",
-    display: "flex",
-    justifyContent: "left",
-    margin: "auto 45vw",
     ":active": {
       backgroundColor: "yellow"
     }
@@ -146,10 +137,26 @@ const styles = StyleSheet.create({
     justifyContent: "center"
   },
 
+  div: {
+    display: "flex",
+    alignItems: "center",
+    width: "100vw",
+    padding: "0.5vw",
+    margin: "auto 45vw auto"
+  },
+
   header: {
     margin: "2vw auto",
     display: "flex",
     fontSize: "4vw",
     justifyContent: "center"
+  },
+  
+  select: {
+    display: "flex",
+    justifyContent: "center",
+    size: "10vw",
+    color: "black",
+    height:"4vw"
   }
 });

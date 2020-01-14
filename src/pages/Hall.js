@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { StyleSheet, css } from "aphrodite";
+import growl from "growl-alert";
+import "growl-alert/dist/growl-alert.css";
 import firebase from "../components/util/firebaseUtils";
-import Exit from "../components/Exit";
 import Button from "../components/Button";
 import Input from "../components/Input";
 import Card from "../components/Card";
 import Order from "../components/Order";
+import Historic from "../components/Historic";
 
 export default function Hall() {
   const [menus, setMenus] = useState([]);
@@ -18,12 +20,19 @@ export default function Hall() {
   const [selectProduct, setSelectProduct] = useState({});
   const [desk, setDesk] = useState(0);
 
+  const refresh = {
+    fadeAway: true,
+    fadeAwayTimeout: 2000
+  };
+
   useEffect(() => {
-    const fireBreak = firebase.firestore()
+    const fireBreak = firebase
+      .firestore()
       .collection("menu")
       .doc("rkDKptwgRbxstwJMPbLO")
       .collection("breakfast");
-    const fireLunch = firebase.firestore()
+    const fireLunch = firebase
+      .firestore()
       .collection("menu")
       .doc("rkDKptwgRbxstwJMPbLO")
       .collection("lunch");
@@ -103,9 +112,15 @@ export default function Hall() {
 
   const sendOrder = () => {
     if ((desk && clientName) === 0) {
-      alert("Preencha o nº da mesa e o nome do cliente!");
+      growl.warning({
+        text: "Preencha o nº da mesa e o nome do cliente!",
+        ...refresh
+      })
     } else if (order.length === 0) {
-      alert("Adicione produtos ao pedido");
+      growl.warning({
+        text: "Adicione produtos ao pedido",
+        ...refresh
+      })
     } else {
       const clientOrder = {
         name: clientName,
@@ -115,8 +130,7 @@ export default function Hall() {
         total: total,
         status: "Pendente"
       };
-      firebase.collection("orders").add(clientOrder);
-      alert("Pedido enviado com sucesso");
+      firebase.firestore().collection("orders").add(clientOrder);
       setclientName("");
       setDesk(0);
       setOrder([]);
@@ -136,7 +150,6 @@ export default function Hall() {
           alt="Burguer Queen - Aréa do Garçom"
         />
         Aréa do Garçom
-       <Exit />
       </header>
       <aside className={css(styles.card)}>
         <fieldset className={css(styles.input)}>
@@ -221,6 +234,7 @@ export default function Hall() {
           title="Enviar para Cozinha"
         />
       </aside>
+      <Historic />
     </main>
   );
 }
@@ -239,7 +253,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#77dd77",
     fontSize: "1.8vw",
     fontWeight: "bold",
-    padding: "1vw",
+    padding: "0.5vw",
     border: "none",
     borderRadius: "1vw",
     cursor: "pointer",

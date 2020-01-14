@@ -9,6 +9,7 @@ export default function Order(props) {
       <p>{props.desk}</p>
       <p>{props.itens}</p>
       <p>{props.time}</p>
+      <p>{props.finalTime}</p>
       <p>{props.status}</p>
       <p><Button
         className={css(styles.button)}

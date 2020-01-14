@@ -1,14 +1,24 @@
 import React from "react";
+import { StyleSheet, css } from "aphrodite";
 
 export default function Select(props) {
   return(
-  <div className={props.className}>
-    <label className={props.className} key={props.id}>{props.title}: </label>
-    <select className={props.className} onChange={props.onChange} defaultValue="Cargo">
-      <option disabled>Cargo</option>
+    <>
+    <label className={css(styles.input)}>Departamento: </label>
+     <select className={props.className} onChange={props.onChange} defaultValue="Cargo">
       <option value="Hall">Salão</option>
       <option value="Kitchen">Cozinha</option>
     </select>
-  </div>
+    </>
   );
 }
+
+const styles = StyleSheet.create({
+  input: {
+    margin:"1vw",
+    display: "flex",
+    size: "10vw",
+    color: "white",
+    height: "4vw",
+  }
+})
