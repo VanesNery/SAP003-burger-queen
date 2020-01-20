@@ -91,8 +91,10 @@ Entrar na tela correta para cada usuário.
 
 ## 7. Imagem da Interface
 
-![Imagem 1](./images/Captura de tela de 2020-01-14 18-51-55.png)
-![Imagem 2](./images/Captura de tela de 2020-01-14 18-52-12.png)
+- Prototipo ![Prototipo](/public/images/Prototipo.gif)
+
+- Tela do sistema ![Tela do sistema](/public/images/BurguerQueen.gif)
 
 ## 8. Link
-https://burguer-queen-3e833.firebaseapp.com
+
+https://burguer-queen-3e833.firebaseapp.com/

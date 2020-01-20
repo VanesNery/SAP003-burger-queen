@@ -3,15 +3,17 @@ import { StyleSheet, css } from "aphrodite";
 import firebase from "../components/util/firebaseUtils";
 import Button from "../components/Button";
 import OrderKitchen from "../components/OrderKitchen";
-import Voltar from "../components/Voltar";
+import Back from "../components/Back";
 
-export default function Kitchen() {
+export default function History() {
   const [menus, setMenus] = useState([]);
   const [menuReady, setmenuReady] = useState([]);
   const [menuorderHistory, setmenuorderHistory] = useState([]);
 
   useEffect(() => {
-    firebase.firestore().collection("orders")
+    firebase
+      .firestore()
+      .collection("orders")
       .where("status", "==", "Pronto")
       .get()
       .then(querySnapshot => {
@@ -21,7 +23,9 @@ export default function Kitchen() {
         }));
         setmenuReady(order);
       });
-      firebase.firestore().collection("orders")
+    firebase
+      .firestore()
+      .collection("orders")
       .where("status", "==", "Entregue")
       .get()
       .then(querySnapshot => {
@@ -38,7 +42,9 @@ export default function Kitchen() {
   const updateStatus = order => {
     if (order.status === "Pronto") {
       order.status = "Entregue";
-      firebase.collection("orders")
+      firebase
+        .firestore()
+        .collection("orders")
         .doc(order.id)
         .update({
           status: "Entregue",
@@ -52,48 +58,56 @@ export default function Kitchen() {
   };
 
   const calculateTime = orders => {
-    let date = new Date(orders);
-    let time = date.toLocaleString();
-    return time;
+    const date = new Date(orders).toLocaleString();
+    return date;
   };
 
   return (
     <main>
       <header className={css(styles.header)}>
         <img
+          className={css(styles.img)}
           src="../images/Burguer Queen.png"
           alt="Burguer Queen - Histórico de Pedidos"
         />
-        Histórico de Pedidos
+        <Back />
       </header>
-      <Button
-        className={css(styles.button)}
-        handleClick={() => setMenus("Pronto")}
-        title="Pedidos Prontos"
-      />
-      <Button
-        className={css(styles.button)}
-        handleClick={() => setMenus("Entregue")}
-        title="Historico de Pedidos"
-      />
-      <Voltar />
-      <section>
-        {orders.map(orders => (
+      <h3 className={css(styles.h3)}>Histórico de Pedidos</h3>
+      <section className={css(styles.section)}>
+        <div className={css(styles.divButton)}>
+        <Button
+          className={css(styles.button)}
+          handleClick={() => setMenus("Pronto")}
+          title="Pedidos Prontos"
+        />
+        <Button
+          className={css(styles.button)}
+          handleClick={() => setMenus("Entregue")}
+          title="Historico de Pedidos"
+        />
+        </div>
+        {orders.map((orders, item) => (
           <OrderKitchen
+            key={item.name}
             className={css(styles.card)}
             name={"Cliente: " + orders.name}
             desk={"Mesa: " + orders.desk}
             itens={orders.itens.map(i => (
               <span>
-                {i.quantity + "x "}
-                {i.name}
-                <br />
+                <p>
+                  {i.quantity + "x "}
+                  {i.name}
+                </p>
               </span>
             ))}
             time={"Pedido Feito: " + calculateTime(orders.time)}
             finalTime={"Pedido Pronto: " + calculateTime(orders.finalTime)}
             status={"Status: " + orders.status}
-            title={orders.status === "Pronto" ? "Pedido Pronto" : "Pedido Finalizado"}
+            title={
+              orders.status === "Pronto"
+                ? "Pedido Entregue ?"
+                : "Pedido Finalizado"
+            }
             onClick={() => updateStatus(orders)}
           />
         ))}
@@ -111,10 +125,9 @@ const styles = StyleSheet.create({
     border: "none",
     borderRadius: "3vw",
     cursor: "pointer",
-    margin: "-1vw 2vw auto 10vw",
     ":active": {
       backgroundColor: "yellow"
-    }
+    } 
   },
 
   buttonExit: {
@@ -131,20 +144,38 @@ const styles = StyleSheet.create({
 
   card: {
     width: "40vw",
+    margin:"1% 3%",
     float: "left",
+    minHeight: "50vw",
     border: "solid",
     borderRadius: "1vw",
     alignItems: "center",
     padding: "1vw",
     color: "white",
-    margin: "1vw 1.5vw 0vw 1.5vw"
+  
   },
 
   header: {
-    margin: "1.5vw auto",
-    padding: "0.8vw",
+    padding: "0.8vw"
+  },
+
+  img: {
+    margin: "0 auto",
+    float: "none",
+    marginLeft: "40vw"
+  },
+
+  h3: {
     display: "flex",
     justifyContent: "center",
-    alignItems: "center"
+    color: "#e85e1a"
+  },
+
+  section: {
+    width: "100%"
+  },
+  divButton:{
+    display:"flex",
+    justifyContent:"space-around"
   }
 });

@@ -4,8 +4,8 @@ import { StyleSheet, css } from "aphrodite";
 export default function Select(props) {
   return(
     <>
-    <label className={css(styles.input)}>Departamento: </label>
-     <select className={props.className} onChange={props.onChange} defaultValue="Cargo">
+     <select className={css(styles.input)} onChange={props.onChange} defaultValue="Cargo">
+      <option value="">Departamento</option>
       <option value="Hall">Salão</option>
       <option value="Kitchen">Cozinha</option>
     </select>
@@ -18,7 +18,6 @@ const styles = StyleSheet.create({
     margin:"1vw",
     display: "flex",
     size: "10vw",
-    color: "white",
     height: "4vw",
   }
 })

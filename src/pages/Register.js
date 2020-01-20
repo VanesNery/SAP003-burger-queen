@@ -13,7 +13,7 @@ export default function Register() {
   const [office, setOffice] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const road = useHistory();
+  const road = useHistory("");
 
   const refresh = {
     fadeAway: true,
@@ -25,18 +25,27 @@ export default function Register() {
       firebase
         .auth()
         .createUserWithEmailAndPassword(email, password)
-        .then(() => { 
+        .then(() => {
           firebase
-          .firestore()
-          .collection("users") 
-          .doc(firebase.auth().currentUser.uid)
-          .set({ 
-            name, 
-            office, 
-            email, 
-            password, 
-            userId: firebase.auth().currentUser.uid })
-           })
+            .firestore()
+            .collection("users")
+            .doc(firebase.auth().currentUser.uid)
+            .set({
+              name,
+              office,
+              email,
+              password,
+              userId: firebase.auth().currentUser.uid
+            })
+            .then(() => {
+              growl.success({ text: "Seu cadastro foi efetuado", ...refresh });
+              if (office === "Hall") {
+                road.push("/Hall");
+              } else {
+                road.push("/Kitchen");
+              }
+            });
+        })
         .catch(error => {
           const errorCode = error.code;
           if (errorCode === "auth/email-already-in-use") {
@@ -63,64 +72,71 @@ export default function Register() {
         alt="Burguer Queen"
       />
       <p className={css(styles.txt)}>Bem Vindo! Faça seu Registro</p>
-      <ul className={css(styles.input)}>
+      <div className={css(styles.divInput)}>
         <Input
+          className={css(styles.input)}
           value={name}
           placeholder="Nome"
           type="text"
           onChange={e => setName(e.target.value)}
         />
-      </ul>
-      <ul className={css(styles.select)}>
         <Select
-        onChange={e => setOffice(e.currentTarget.value)}
+          className={css(styles.select)}
+          onChange={e => setOffice(e.currentTarget.value)}
         />
-      </ul>
-      <ul className={css(styles.input)}>
         <Input
+          className={css(styles.input)}
           value={email}
           placeholder="Email"
           type="email"
           onChange={e => setEmail(e.target.value)}
         />
-      </ul>
-      <ul className={css(styles.input)}>
         <Input
+          className={css(styles.input)}
           value={password}
           placeholder="Senha"
           type="password"
           onChange={e => setPassword(e.target.value)}
         />
-      </ul>
-      <ul className={css(styles.div)}>
-      <Button
-      className={css(styles.button)}
-        title="Voltar"
-        handleClick={() => road.push("/")}
-      />
-      <Button
-      className={css(styles.button)}
-        handleClick={() => authFirebase()}
-        title="Registrar"
-      />
-      </ul>
+      </div>
+      <div className={css(styles.divButton)}>
+        <Button
+          className={css(styles.button)}
+          title="Voltar"
+          handleClick={() => road.push("/")}
+        />
+        <Button
+          className={css(styles.button)}
+          handleClick={() => authFirebase()}
+          title="Registrar"
+        />
+      </div>
     </main>
   );
 }
 
 const styles = StyleSheet.create({
-  input: {
-    margin: "auto auto 1vw",
-    display: "flex",
+  divInput: {
+    margin: "auto",
+    display: "grid",
     justifyContent: "center",
-    size: "10vw",
+    borderRadius: "10vw",
     color: "white",
-    height: "4vw",
+    height: "8vw",
+    width: "1vw"
+  },
+
+  input: {
+    padding: "1vw",
+    margin: "0.5vw"
   },
 
   button: {
+    margin: "1vw",
+    width: "12vw",
+    height: "9vw",
     backgroundColor: "#77dd77",
-    fontSize: "1vw",
+    fontSize: "0.8em",
     fontWeight: "bold",
     padding: "0.5vw",
     borderRadius: "1vw",
@@ -134,29 +150,31 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: "3vw",
     display: "flex",
-    justifyContent: "center"
+    justifyContent: "center",
+    margin: "-3vw 0vw 1vw"
   },
 
-  div: {
+  divButton: {
     display: "flex",
     alignItems: "center",
-    width: "100vw",
+    width: "25vw",
     padding: "0.5vw",
-    margin: "auto 45vw auto"
+    margin: "13.5vw auto",
+    height: "10vw"
   },
 
   header: {
-    margin: "2vw auto",
+    margin: "3vw auto 1vw",
     display: "flex",
     fontSize: "4vw",
     justifyContent: "center"
   },
-  
+
   select: {
     display: "flex",
     justifyContent: "center",
-    size: "10vw",
+    size: "7vw",
     color: "black",
-    height:"4vw"
+    height: "4vw"
   }
 });

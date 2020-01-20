@@ -41,16 +41,15 @@ export default function Kitchen() {
   const orders = menus === "Pendente" ? menuPending : menuorderHistory;
 
   const calculateTime = orders => {
-    let date = new Date(orders);
-    let time = date.toLocaleString();
-    return time;
+    const date = new Date(orders).toLocaleString();
+    return date;
   };
 
   const updateStatus = order => {
     if (order.status === "Pendente") {
       order.status = "Pronto";
       firebase
-      .firestore()
+        .firestore()
         .collection("orders")
         .doc(order.id)
         .update({
@@ -68,13 +67,16 @@ export default function Kitchen() {
     <main>
       <header className={css(styles.header)}>
         <img
+          className={css(styles.img)}
           src="../images/Burguer Queen.png"
           alt="Burguer Queen - Aréa do Cozinheiro"
         />
-        Aréa do Cozinheiro
+        <Exit />
       </header>
-      <Exit />
-      <Button
+      <h3 className={css(styles.h3)}>Aréa do Cozinheiro</h3>
+      <section className={css(styles.section)}>
+        <div className={css(styles.divButton)}>
+        <Button
         className={css(styles.button)}
         handleClick={() => setMenus("Pendente")}
         title="Pedidos Pendentes"
@@ -84,7 +86,7 @@ export default function Kitchen() {
         handleClick={() => setMenus("Entregue")}
         title="Historico de Pedidos"
       />
-      <section>
+        </div>
         {orders.map(orders => (
           <OrderKitchen
             className={css(styles.card)}
@@ -99,10 +101,16 @@ export default function Kitchen() {
               </span>
             ))}
             time={"Pedido Feito: " + calculateTime(orders.time)}
-            finalTime={"Pedido Pronto: " + calculateTime(orders.finalTime)}
+            finalTime={
+              orders.status === "Entregue" 
+              ? "Pedido Entregue: " + calculateTime(orders.finalTime)
+              : ""
+            }
             status={"Status: " + orders.status}
             title={
-              orders.status === "Pendente" ? "Pedido Pendente" : "Pedido Finalizado"
+              orders.status === "Pendente"
+                ? "Pedido Pronto ?"
+                : "Pedido Finalizado"
             }
             onClick={() => updateStatus(orders)}
           />
@@ -121,31 +129,57 @@ const styles = StyleSheet.create({
     border: "none",
     borderRadius: "3vw",
     cursor: "pointer",
-    margin: "-1vw 2vw auto 10vw",
+    ":active": {
+      backgroundColor: "yellow"
+    } 
+  },
+
+  buttonExit: {
+    backgroundColor: "#77dd77",
+    fontWeight: "bold",
+    padding: "0.5vw",
+    border: "none",
+    borderRadius: "1vw",
+    cursor: "pointer",
     ":active": {
       backgroundColor: "yellow"
     }
   },
 
   card: {
-    minWidth: "40vw",
-    minHeight: "50vw",
-    width: "35vw",
-    height: "38vw",
+    width: "40vw",
+    margin:"1% 3%",
     float: "left",
+    minHeight: "50vw",
     border: "solid",
     borderRadius: "1vw",
     alignItems: "center",
     padding: "1vw",
     color: "white",
-    margin: "1vw 1.5vw 0vw 1.5vw"
+  
   },
 
   header: {
-    margin: "1.5vw auto",
-    padding: "0.8vw",
+    padding: "0.8vw"
+  },
+
+  img: {
+    margin: "0 auto",
+    float: "none",
+    marginLeft: "40vw"
+  },
+
+  h3: {
     display: "flex",
     justifyContent: "center",
-    alignItems: "center"
+    color: "#e85e1a"
+  },
+
+  section: {
+    width: "100%"
+  },
+  divButton:{
+    display:"flex",
+    justifyContent:"space-around"
   }
 });

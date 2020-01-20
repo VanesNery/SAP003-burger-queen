@@ -8,6 +8,7 @@ import Input from "../components/Input";
 import Card from "../components/Card";
 import Order from "../components/Order";
 import Historic from "../components/Historic";
+import Exit from "../components/Exit";
 
 export default function Hall() {
   const [menus, setMenus] = useState([]);
@@ -134,6 +135,9 @@ export default function Hall() {
       setclientName("");
       setDesk(0);
       setOrder([]);
+      growl.success({text: "Pedido enviado para Cozinha",
+    ...refresh
+  })
     }
   };
 
@@ -145,26 +149,29 @@ export default function Hall() {
   return (
     <main>
       <header className={css(styles.header)}>
+      <Historic />
         <img
           src="../images/Burguer Queen.png"
           alt="Burguer Queen - Aréa do Garçom"
         />
-        Aréa do Garçom
+      <Exit />
       </header>
+      <h3 className={css(styles.h3)}>Aréa do Garçom</h3>
       <aside className={css(styles.card)}>
         <fieldset className={css(styles.input)}>
-          Pedido
-          <ul className={css(styles.input)}>
-            Cliente:{" "}
+          <legend>Pedido</legend>
+          <ul >
+          <li className={css(styles.liInput)}>
+           <label className={css(styles.labelInput)}> Cliente:</label>
             <Input
               value={clientName}
               title="Cliente"
               type="text"
               onChange={e => setclientName(e.target.value)}
             />
-          </ul>
-          <ul className={css(styles.input)}>
-            Nº da Mesa:{" "}
+            </li>
+          <li className={css(styles.liInput)}>
+          <label className={css(styles.labelInput)}> Nº da Mesa:</label> 
             <Input
               value={desk}
               title="Nº da Mesa"
@@ -172,6 +179,7 @@ export default function Hall() {
               min="0"
               onChange={e => setDesk(e.target.value)}
             />
+            </li>
           </ul>
         </fieldset>
         <Button
@@ -227,26 +235,37 @@ export default function Hall() {
         {order.map((product, item) => (
           <Order key={item.name} {...product} onClick={removeProduct} />
         ))}
-        <strong> Total: R${total},00</strong>
+        <strong className={css(styles.strongTotal)}> Total: R${total},00</strong>
         <Button
           className={css(styles.buttonSend)}
           handleClick={() => sendOrder(order)}
           title="Enviar para Cozinha"
         />
       </aside>
-      <Historic />
     </main>
   );
 }
 
 const styles = StyleSheet.create({
   input: {
-    margin: "auto auto 1vw",
-    display: "flex",
-    justifyContent: "left",
-    alignItems: "left",
+    display: "grid",
     fontSize: "15px",
-    color: "white"
+    color: "white", 
+    listStyle: "none",
+    margin: "0vw 0vw 1vw"
+  },
+
+  liInput: {
+    margin: "0.1vw 1vw 2vw 1vw",
+    float:"left",
+    listStyle: "none",
+  },
+
+  labelInput:{
+    width:"10vw",
+    margin: "0vw 2vw -2.3vw -6vw",
+    float:"left",
+    padding: "0.5vw",
   },
 
   button: {
@@ -307,29 +326,39 @@ const styles = StyleSheet.create({
   },
 
   card: {
-    width: "40%",
+    width: "45%",
     float: "left",
     alignItems: "center",
     margin: "-1% 1.5% 0% 1.5%"
   },
 
   order: {
-    margin: "-1% 1.5% 0% 1.5%",
-    width: "40%",
+    margin: "-1% 0.5% 0% 3.5%",
+    width: "45%",
     float: "left",
     border: "none",
     alignItems: "center",
     backgroundColor: "#1f231f",
     color: "white",
     size: "100vw",
-    fontSize: "1.5vw"
+    padding:"1vw"
+  },
+
+  strongTotal: {
+    fontSize: "1.2em",
   },
 
   header: {
-    margin: "1.5vw auto",
+    margin: "1.5vw",
+    height: "10vw",
     padding: "0.8vw",
     display: "flex",
+    justifyContent: "space-between",
+  },
+
+  h3:{
+    display: "flex",
     justifyContent: "center",
-    alignItems: "center"
+    color: "#e85e1a",
   }
 });

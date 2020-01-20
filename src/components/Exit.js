@@ -24,17 +24,19 @@ export default function Exit() {
   };
 
   return (
-    <p>
     <button className={css(styles.button)} onClick={() => logOut()}>
       Sair
     </button>
-    </p>
   );
 }
 
 const styles = StyleSheet.create({
   button: {
     backgroundColor: "#77dd77",
+    margin: "2vw",
+    height: "5vw",
+    float: "right",
+    width: "10vw",
     fontWeight: "bold",
     padding: "1.5vw",
     border: "none",
@@ -45,3 +47,4 @@ const styles = StyleSheet.create({
     }
   }
 });
+
