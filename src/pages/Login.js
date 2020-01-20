@@ -18,35 +18,33 @@ export default function Register() {
   };
 
   const login = () => {
+    firebase
+      .auth()
+      .signInWithEmailAndPassword(email, password)
+      .then(userId => {
         firebase
-        .auth()
-        .signInWithEmailAndPassword(email, password)
-        .then(userId => {
-          console.log(userId)
-          firebase
-            .firestore()
-            .collection("users")
-            .doc(userId.user.uid)
-            .get()
-            .then( doc => {
-              if(doc.data().office === "Kitchen"){
-                road.push("/Kitchen");
-              } else {
-                road.push("/Hall", "/History");
-              }
+          .firestore()
+          .collection("users")
+          .doc(userId.user.uid)
+          .get()
+          .then(doc => {
+            if (doc.data().office === "Kitchen") {
+              road.push("/Kitchen");
+            } else {
+              road.push("/Hall", "/History");
             }
-          );
-        })
-        .catch(error => {
-          const errorCode = error.code;
-          if (errorCode === "auth/wrong-password") {
-            growl.error({ text: "Senha inválida", ...refresh });
-          } else if (errorCode === "auth/invalid-email") {
-            growl.error({ text: "Email não registrado", ...refresh });
-          } else if (errorCode === "auth/invalid-email") {
-            growl.error({text: "Formato do email inválido", ...refresh});
-          }
-        });
+          });
+      })
+      .catch(error => {
+        const errorCode = error.code;
+        if (errorCode === "auth/wrong-password") {
+          growl.error({ text: "Senha inválida", ...refresh });
+        } else if (errorCode === "auth/invalid-email") {
+          growl.error({ text: "Email não registrado", ...refresh });
+        } else if (errorCode === "auth/invalid-email") {
+          growl.error({ text: "Formato do email inválido", ...refresh });
+        }
+      });
   };
 
   return (
@@ -57,50 +55,60 @@ export default function Register() {
         alt="Burguer Queen"
       />
       <p className={css(styles.txt)}>Bem Vindo! Faça seu Login</p>
-      <ul className={css(styles.input)}>
+      <div className={css(styles.divInput)}>
         <Input
+          className={css(styles.input)}
           value={email}
           placeholder="Email"
           type="email"
           onChange={e => setEmail(e.target.value)}
         />
-      </ul>
-      <ul className={css(styles.input)}>
         <Input
+          className={css(styles.input)}
           value={password}
           placeholder="Senha"
           type="password"
           onChange={e => setPassword(e.target.value)}
         />
-      </ul>
-      <div className={css(styles.div)}>
-      <Button
-        className={css(styles.button)}
-        title="Login"
-        handleClick={() => login()}/>
-      <Button
-        className={css(styles.button)}
-        handleClick={() => road.push("/Register")}
-        title="Registra-se"
-      />
+      </div>
+      <div className={css(styles.divButton)}>
+        <Button
+          className={css(styles.button)}
+          title="Login"
+          handleClick={() => login()}
+        />
+        <Button
+          className={css(styles.button)}
+          handleClick={() => road.push("/Register")}
+          title="Registrar-se"
+        />
       </div>
     </main>
   );
 }
 
 const styles = StyleSheet.create({
-  input: {
-    margin: "auto auto 1vw",
-    display: "flex",
+  divInput: {
+    margin: "auto",
+    display: "grid",
     justifyContent: "center",
     borderRadius: "10vw",
     color: "white",
-    height: "4vw",
+    height: "8vw",
+    width: "1vw"
+  },
+
+  input: {
+    padding: "1vw",
+    margin: "0.5vw"
   },
 
   button: {
+    margin: "1vw",
+    width: "12vw",
+    height: "9vw",
     backgroundColor: "#77dd77",
-    fontSize: "1vw",
+    fontSize: "0.8em",
     fontWeight: "bold",
     padding: "0.5vw",
     borderRadius: "1vw",
@@ -114,19 +122,21 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: "3vw",
     display: "flex",
-    justifyContent: "center"
+    justifyContent: "center",
+    height: "1vw"
   },
 
-  div: {
+  divButton: {
     display: "flex",
     alignItems: "center",
-    width: "100vw",
+    width: "25vw",
     padding: "0.5vw",
-    margin: "auto 45vw"
+    margin: "5vw auto",
+    height: "10vw"
   },
 
   header: {
-    margin: "2vw auto",
+    margin: "3vw auto 1vw",
     display: "flex",
     fontSize: "4vw",
     justifyContent: "center"

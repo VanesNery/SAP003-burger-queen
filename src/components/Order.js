@@ -3,14 +3,15 @@ import { StyleSheet, css } from "aphrodite";
 
 export default function Order(props) {
   return (
-    <div className={props.className}>
-      <span>{props.quantity + "x"}</span> <span>{props.name}</span>
-      <span> {props.typeOption}</span> <span>{props.typeExtra}</span>
-      <input
-        className={css(styles.button)}
-        onClick={() => props.onClick(props)}
-      />
-    </div>
+    <li className={css(styles.li)}>
+      <p className={css(styles.txt)}>
+        {props.quantity + "x"} {props.name} {props.typeOption} {props.typeExtra}
+        <button
+          className={css(styles.button)}
+          onClick={() => props.onClick(props)}
+        />
+      </p>
+    </li>
   );
 }
 
@@ -21,8 +22,21 @@ const styles = StyleSheet.create({
     backgroundRepeat: "no-repeat",
     backgroundColor: "transparent",
     border: "none",
-    padding: "1vw",
     size: "1vw",
-    cursor: "pointer"
+    cursor: "pointer",
+    float: "right",
+    width: "3.5vw",
+    height: "3.5vw",
+    margin: "0.2vw"
+  },
+
+  li: {
+    width: "44.5vw",
+    height: "5vw",
+    listStyle: "none"
+  },
+
+  txt: {
+    fontSize: "1em"
   }
 });
