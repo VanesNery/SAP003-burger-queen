@@ -14,7 +14,7 @@
 ***
 ## 1. O que é?
 
-Burguer Queen é um interface adaptada para tablet, no qual o garçom consegue fazer o pedido e mandar para o cozinheiro de forma fácil e prática.
+Projeto proposto pela Laboratória. O Burger Queen é uma interface projetada para um restaurante, que facilita o fluxo da recepção de pedidos entre o salão e o seu preparo na cozinha, até a entrega do pedido ao cliente.
 
 ## 2. Resumo do projeto
 
