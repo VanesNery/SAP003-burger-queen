@@ -273,7 +273,6 @@ const styles = StyleSheet.create({
     fontSize: "1.8vw",
     fontWeight: "bold",
     padding: "0.5vw",
-    border: "none",
     borderRadius: "1vw",
     cursor: "pointer",
     margin: "auto 2vw auto 2vw",
@@ -286,29 +285,26 @@ const styles = StyleSheet.create({
     backgroundColor: "#77dd77",
     fontSize: "1.3vw",
     fontWeight: "bold",
-    border: "none",
     borderRadius: "1vw",
     cursor: "pointer",
     margin: "1vw 0.5vw auto 0.5vw"
   },
 
   buttonOption: {
-    backgroundColor: "red",
+    backgroundColor: "#DB4E4E",
     fontSize: "1.3vw",
     fontWeight: "bold",
     padding: "1vw",
-    border: "none",
     borderRadius: "1vw",
     cursor: "pointer",
     margin: "1vw auto auto 1vw"
   },
 
   buttonExtra: {
-    backgroundColor: "blue",
+    backgroundColor: "#1E90FF",
     fontSize: "1.3vw",
     fontWeight: "bold",
     padding: "1vw",
-    border: "none",
     borderRadius: "1vw",
     cursor: "pointer",
     margin: "1vw auto auto 1vw"
@@ -319,7 +315,6 @@ const styles = StyleSheet.create({
     fontSize: "1.3vw",
     fontWeight: "bold",
     padding: "1vw",
-    border: "none",
     borderRadius: "5vw",
     cursor: "pointer",
     margin: "1vw"
@@ -336,7 +331,6 @@ const styles = StyleSheet.create({
     margin: "-1% 0.5% 0% 3.5%",
     width: "45%",
     float: "left",
-    border: "none",
     alignItems: "center",
     backgroundColor: "#1f231f",
     color: "white",
@@ -348,8 +342,8 @@ const styles = StyleSheet.create({
     fontSize: "1.2em",
   },
 
-  header: {
-    margin: "1.5vw",
+  header:{
+    margin: "-1vw -1vw",
     height: "10vw",
     padding: "0.8vw",
     display: "flex",

@@ -96,7 +96,10 @@ export default function Kitchen() {
               <span>
                 <p>
                   {i.quantity + "x "}
-                  {i.name}
+                  {i.quantity + "x "}
+                  {(i.name === "Hambúrguer Simples" || i.name === "Hambúrguer Duplo")
+                  ? i.name +" "+i.typeOption +" "+i.typeExtra
+                  : i.name}
                 </p>
               </span>
             ))}
@@ -126,7 +129,6 @@ const styles = StyleSheet.create({
     fontSize: "2vw",
     fontWeight: "bold",
     padding: "1vw",
-    border: "none",
     borderRadius: "3vw",
     cursor: "pointer",
     ":active": {
@@ -138,7 +140,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#77dd77",
     fontWeight: "bold",
     padding: "0.5vw",
-    border: "none",
     borderRadius: "1vw",
     cursor: "pointer",
     ":active": {
@@ -150,17 +151,18 @@ const styles = StyleSheet.create({
     width: "40vw",
     margin:"1% 3%",
     float: "left",
-    minHeight: "50vw",
+    minHeight: "40vw",
     border: "solid",
     borderRadius: "1vw",
     alignItems: "center",
     padding: "1vw",
     color: "white",
-  
+    boxShadow: "0vw 1vw 5vw #FFF"
   },
 
   header: {
-    padding: "0.8vw"
+    padding: "0.8vw",
+    margin: "-1vw -1vw"
   },
 
   img: {

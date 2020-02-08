@@ -28,7 +28,6 @@ const styles = StyleSheet.create({
     fontSize: "11px",
     fontWeight: "bold",
     padding: "1vw",
-    border: "none",
     borderRadius: "1vw",
     cursor: "pointer",
     ":active": {

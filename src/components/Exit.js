@@ -17,7 +17,9 @@ export default function Exit() {
     firebase
       .auth()
       .signOut()
-      .then(road.push("/"))
+      .then( 
+        growl.success({ text: "Até Logo", ...refresh }),
+        road.push("/"))
       .catch(() => {
         growl.error({ text: "Ocorreu um erro ao tentar sair", ...refresh });
       });
@@ -39,7 +41,6 @@ const styles = StyleSheet.create({
     width: "10vw",
     fontWeight: "bold",
     padding: "1.5vw",
-    border: "none",
     borderRadius: "1vw",
     cursor: "pointer",
     ":active": {
