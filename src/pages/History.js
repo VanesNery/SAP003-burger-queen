@@ -75,16 +75,16 @@ export default function History() {
       <h3 className={css(styles.h3)}>Histórico de Pedidos</h3>
       <section className={css(styles.section)}>
         <div className={css(styles.divButton)}>
-        <Button
-          className={css(styles.button)}
-          handleClick={() => setMenus("Pronto")}
-          title="Pedidos Prontos"
-        />
-        <Button
-          className={css(styles.button)}
-          handleClick={() => setMenus("Entregue")}
-          title="Historico de Pedidos"
-        />
+          <Button
+            className={css(styles.button)}
+            handleClick={() => setMenus("Pronto")}
+            title="Pedidos Prontos"
+          />
+          <Button
+            className={css(styles.button)}
+            handleClick={() => setMenus("Entregue")}
+            title="Historico de Pedidos"
+          />
         </div>
         {orders.map((orders, item) => (
           <OrderKitchen
@@ -96,11 +96,12 @@ export default function History() {
               <span>
                 <p>
                   {i.quantity + "x "}
-                  {(i.name === "Hambúrguer Simples" || i.name === "Hambúrguer Duplo")
-                  ? i.name +" "+i.typeOption +" "+i.typeExtra
-                  : i.name}
+                  {i.name === "Hambúrguer Simples" ||
+                  i.name === "Hambúrguer Duplo"
+                    ? i.name + " " + i.typeOption + " " + i.typeExtra
+                    : i.name}
                 </p>
-              </span> 
+              </span>
             ))}
             time={"Pedido Feito: " + calculateTime(orders.time)}
             finalTime={"Pedido Pronto: " + calculateTime(orders.finalTime)}
@@ -128,7 +129,7 @@ const styles = StyleSheet.create({
     cursor: "pointer",
     ":active": {
       backgroundColor: "yellow"
-    } 
+    }
   },
 
   buttonExit: {
@@ -144,7 +145,7 @@ const styles = StyleSheet.create({
 
   card: {
     width: "40vw",
-    margin:"1% 3%",
+    margin: "1% 3%",
     float: "left",
     minHeight: "40vw",
     border: "solid",
@@ -176,8 +177,8 @@ const styles = StyleSheet.create({
     width: "100%"
   },
 
-  divButton:{
-    display:"flex",
-    justifyContent:"space-around"
+  divButton: {
+    display: "flex",
+    justifyContent: "space-around"
   }
 });
