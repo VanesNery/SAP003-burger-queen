@@ -116,12 +116,12 @@ export default function Hall() {
       growl.warning({
         text: "Preencha o nº da mesa e o nome do cliente!",
         ...refresh
-      })
+      });
     } else if (order.length === 0) {
       growl.warning({
         text: "Adicione produtos ao pedido",
         ...refresh
-      })
+      });
     } else {
       const clientOrder = {
         name: clientName,
@@ -131,13 +131,14 @@ export default function Hall() {
         total: total,
         status: "Pendente"
       };
-      firebase.firestore().collection("orders").add(clientOrder);
+      firebase
+        .firestore()
+        .collection("orders")
+        .add(clientOrder);
       setclientName("");
       setDesk(0);
       setOrder([]);
-      growl.success({text: "Pedido enviado para Cozinha",
-    ...refresh
-  })
+      growl.success({ text: "Pedido enviado para Cozinha", ...refresh });
     }
   };
 
@@ -149,36 +150,36 @@ export default function Hall() {
   return (
     <main>
       <header className={css(styles.header)}>
-      <Historic />
+        <Historic />
         <img
           src="../images/Burguer Queen.png"
           alt="Burguer Queen - Aréa do Garçom"
         />
-      <Exit />
+        <Exit />
       </header>
       <h3 className={css(styles.h3)}>Aréa do Garçom</h3>
       <aside className={css(styles.card)}>
         <fieldset className={css(styles.input)}>
           <legend>Pedido</legend>
-          <ul >
-          <li className={css(styles.liInput)}>
-           <label className={css(styles.labelInput)}> Cliente:</label>
-            <Input
-              value={clientName}
-              title="Cliente"
-              type="text"
-              onChange={e => setclientName(e.target.value)}
-            />
+          <ul>
+            <li className={css(styles.liInput)}>
+              <label className={css(styles.labelInput)}> Cliente:</label>
+              <Input
+                value={clientName}
+                title="Cliente"
+                type="text"
+                onChange={e => setclientName(e.target.value)}
+              />
             </li>
-          <li className={css(styles.liInput)}>
-          <label className={css(styles.labelInput)}> Nº da Mesa:</label> 
-            <Input
-              value={desk}
-              title="Nº da Mesa"
-              type="number"
-              min="0"
-              onChange={e => setDesk(e.target.value)}
-            />
+            <li className={css(styles.liInput)}>
+              <label className={css(styles.labelInput)}> Nº da Mesa:</label>
+              <Input
+                value={desk}
+                title="Nº da Mesa"
+                type="number"
+                min="0"
+                onChange={e => setDesk(e.target.value)}
+              />
             </li>
           </ul>
         </fieldset>
@@ -235,7 +236,10 @@ export default function Hall() {
         {order.map((product, item) => (
           <Order key={item.name} {...product} onClick={removeProduct} />
         ))}
-        <strong className={css(styles.strongTotal)}> Total: R${total},00</strong>
+        <strong className={css(styles.strongTotal)}>
+          {" "}
+          Total: R${total},00
+        </strong>
         <Button
           className={css(styles.buttonSend)}
           handleClick={() => sendOrder(order)}
@@ -250,22 +254,22 @@ const styles = StyleSheet.create({
   input: {
     display: "grid",
     fontSize: "15px",
-    color: "white", 
+    color: "white",
     listStyle: "none",
     margin: "0vw 0vw 1vw"
   },
 
   liInput: {
     margin: "0.1vw 1vw 2vw 1vw",
-    float:"left",
-    listStyle: "none",
+    float: "left",
+    listStyle: "none"
   },
 
-  labelInput:{
-    width:"10vw",
+  labelInput: {
+    width: "10vw",
     margin: "0vw 2vw -2.3vw -6vw",
-    float:"left",
-    padding: "0.5vw",
+    float: "left",
+    padding: "0.5vw"
   },
 
   button: {
@@ -273,7 +277,6 @@ const styles = StyleSheet.create({
     fontSize: "1.8vw",
     fontWeight: "bold",
     padding: "0.5vw",
-    border: "none",
     borderRadius: "1vw",
     cursor: "pointer",
     margin: "auto 2vw auto 2vw",
@@ -286,29 +289,26 @@ const styles = StyleSheet.create({
     backgroundColor: "#77dd77",
     fontSize: "1.3vw",
     fontWeight: "bold",
-    border: "none",
     borderRadius: "1vw",
     cursor: "pointer",
     margin: "1vw 0.5vw auto 0.5vw"
   },
 
   buttonOption: {
-    backgroundColor: "red",
+    backgroundColor: "#DB4E4E",
     fontSize: "1.3vw",
     fontWeight: "bold",
     padding: "1vw",
-    border: "none",
     borderRadius: "1vw",
     cursor: "pointer",
     margin: "1vw auto auto 1vw"
   },
 
   buttonExtra: {
-    backgroundColor: "blue",
+    backgroundColor: "#1E90FF",
     fontSize: "1.3vw",
     fontWeight: "bold",
     padding: "1vw",
-    border: "none",
     borderRadius: "1vw",
     cursor: "pointer",
     margin: "1vw auto auto 1vw"
@@ -319,7 +319,6 @@ const styles = StyleSheet.create({
     fontSize: "1.3vw",
     fontWeight: "bold",
     padding: "1vw",
-    border: "none",
     borderRadius: "5vw",
     cursor: "pointer",
     margin: "1vw"
@@ -336,29 +335,28 @@ const styles = StyleSheet.create({
     margin: "-1% 0.5% 0% 3.5%",
     width: "45%",
     float: "left",
-    border: "none",
     alignItems: "center",
     backgroundColor: "#1f231f",
     color: "white",
     size: "100vw",
-    padding:"1vw"
+    padding: "1vw"
   },
 
   strongTotal: {
-    fontSize: "1.2em",
+    fontSize: "1.2em"
   },
 
   header: {
-    margin: "1.5vw",
+    margin: "-1vw -1vw",
     height: "10vw",
     padding: "0.8vw",
     display: "flex",
-    justifyContent: "space-between",
+    justifyContent: "space-between"
   },
 
-  h3:{
+  h3: {
     display: "flex",
     justifyContent: "center",
-    color: "#e85e1a",
+    color: "#e85e1a"
   }
 });

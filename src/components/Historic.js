@@ -20,7 +20,6 @@ const styles = StyleSheet.create({
     width: "10vw",
     fontWeight: "bold",
     padding: "1.5vw",
-    border: "none",
     borderRadius: "1vw",
     cursor: "pointer",
     ":active": {

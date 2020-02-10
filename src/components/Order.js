@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
     float: "right",
     width: "3.5vw",
     height: "3.5vw",
-    margin: "0.2vw"
+    margin: "-1vw 3vw 0vw 0vw"
   },
 
   li: {

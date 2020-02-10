@@ -28,6 +28,7 @@ export default function Register() {
           .doc(userId.user.uid)
           .get()
           .then(doc => {
+            growl.success({ text: "Login foi efetuado", ...refresh });
             if (doc.data().office === "Kitchen") {
               road.push("/Kitchen");
             } else {
@@ -48,14 +49,13 @@ export default function Register() {
   };
 
   return (
-    <main>
-      <img
-        className={css(styles.header)}
-        src="../images/Logo_BQ.png"
-        alt="Burguer Queen"
-      />
-      <p className={css(styles.txt)}>Bem Vindo! Faça seu Login</p>
-      <div className={css(styles.divInput)}>
+    <main className={css(styles.main)}>
+      <aside className={css(styles.side)}>
+        <img 
+        className={css(styles.img)}
+        src="../images/Logo_BQ.png" alt="Burguer Queen" />
+      </aside>
+      <aside className={css(styles.form)}>
         <Input
           className={css(styles.input)}
           value={email}
@@ -70,8 +70,6 @@ export default function Register() {
           type="password"
           onChange={e => setPassword(e.target.value)}
         />
-      </div>
-      <div className={css(styles.divButton)}>
         <Button
           className={css(styles.button)}
           title="Login"
@@ -80,65 +78,57 @@ export default function Register() {
         <Button
           className={css(styles.button)}
           handleClick={() => road.push("/Register")}
-          title="Registrar-se"
+          title="Registrar"
         />
-      </div>
+      </aside>
     </main>
   );
 }
 
 const styles = StyleSheet.create({
-  divInput: {
-    margin: "auto",
-    display: "grid",
-    justifyContent: "center",
-    borderRadius: "10vw",
+  form: {
+    margin: "32vw 8vw 3vw 1vw",
     color: "white",
-    height: "8vw",
-    width: "1vw"
+    width: "32vw"
   },
 
   input: {
+    alignItems: "center",
     padding: "1vw",
-    margin: "0.5vw"
+    margin: "0.5vw",
+    borderRadius: "6vw",
+    width: "27vw",
+    height: "4vw"
   },
 
   button: {
-    margin: "1vw",
-    width: "12vw",
-    height: "9vw",
+    alignItems: "center",
+    margin: "0.5vw 6vw",
+    width: "18vw",
+    height: "6vw",
     backgroundColor: "#77dd77",
     fontSize: "0.8em",
     fontWeight: "bold",
-    padding: "0.5vw",
-    borderRadius: "1vw",
+    borderRadius: "5vw",
     cursor: "pointer",
     ":active": {
       backgroundColor: "yellow"
     }
   },
 
-  txt: {
-    color: "white",
-    fontSize: "3vw",
-    display: "flex",
-    justifyContent: "center",
-    height: "1vw"
+  side: {
+    width: "40vw",
+    padding: "0.5vw",
+    margin: "14vw",
+    height: "5vw"
   },
 
-  divButton: {
+  main: {
     display: "flex",
     alignItems: "center",
-    width: "25vw",
-    padding: "0.5vw",
-    margin: "5vw auto",
-    height: "10vw"
-  },
-
-  header: {
-    margin: "3vw auto 1vw",
-    display: "flex",
-    fontSize: "4vw",
-    justifyContent: "center"
+    flexDirection: "row",
+    width: "90vw",
+    height: "42vw",
+    justifyContent: "space-around"
   }
 });
